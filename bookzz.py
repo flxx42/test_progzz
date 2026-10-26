@@ -22,6 +22,9 @@ def health():
 def hello(name: str = "студент"):
     return {"message": f"Привет, {name}!"}
 
+@app.get("/version")
+def version():
+    return {"version":"0.1.0"}
 
 books = [
     {"id": 1, "title": "1984", "author": "George Orwell", "year": 1949},
