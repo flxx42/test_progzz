@@ -15,7 +15,7 @@ jobs:
       - name: Download repository
         uses: actions/checkout@v7
         with:
-          python-version:'3.12'
+          python-version: '3.12'
           cache: pip
           cache-dependency-path: |
             requirements.txt
