@@ -13,29 +13,35 @@ jobs:
 
     steps:
       - name: Download repository
-      - uses: actions/checkout@v7
+        uses: actions/checkout@v4 # 1. Объединили name и uses, исправили версию на v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5 # 2. Добавили пропущенный экшен для настройки Python
         with:
           python-version: '3.12'
           cache: pip
-          cache-dependency-path:
+          cache-dependency-path: | # 3. Добавили '|' для многострочного списка файлов
             requirements.txt
             requirements_dev.txt
+
       - name: Install dependencies
-          run:
-            python -m pip install --upgrade pip
-            python -m pip install -r requirements.txt
-            python -m pip install -r requirements_dev.txt
+        run: | # 4. Исправили отступ и добавили '|' для многострочного скрипта
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip install -r requirements_dev.txt
+
       - name: Run tests
         run: python -m pytest -v
+
   package:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Download repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@v4
 
       - name: Upload tested application
-        uses: actions/checkout@v7
+        uses: actions/upload-artifact@v4 # 5. Заменили checkout на правильный экшен upload-artifact
         with:
           name: fastapi-service
           path: |
